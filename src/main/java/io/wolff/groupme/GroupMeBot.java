@@ -2,9 +2,11 @@ package io.wolff.groupme;
 
 import com.google.gson.Gson;
 
+import io.wolff.groupme.model.BotMessage;
 import io.wolff.groupme.model.Message;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
+import reactor.netty.ByteBufFlux;
 import reactor.netty.DisposableServer;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientResponse;
@@ -43,10 +45,10 @@ public class GroupMeBot {
 		});
 	}
 	
-	public Mono<HttpClientResponse> postMessage() {
+	public Mono<HttpClientResponse> postMessage(BotMessage message) {
+		message.bot_id = this.botId;
 		return HttpClient.create()
-				.baseUrl("https://api.groupme.com/v3/bots/post?bot_id="+this.botId)
-				// TODO: set content
-				.post().response();
+				.baseUrl("https://api.groupme.com/v3/bots/post")
+				.post().send(ByteBufFlux.fromString(Mono.just(new Gson().toJson(message)))).response();
 	}
 }

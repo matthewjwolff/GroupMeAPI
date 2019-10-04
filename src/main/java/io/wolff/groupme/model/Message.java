@@ -3,17 +3,17 @@ package io.wolff.groupme.model;
 import java.util.List;
 
 public class Message {
-	List<Attachment> attachments;
-	String avatar_url;
+	public List<Attachment> attachments;
+	public String avatar_url;
 	// timestamp class
-	Object created_at;
-	String group_id;
-	String id;
-	String name;
-	String sender_id;
-	String sender_type;
-	String source_guid; //?
-	boolean system;
-	String text;
-	String user_id;
+	public Object created_at;
+	public String group_id;
+	public String id;
+	public String name;
+	public String sender_id;
+	public String sender_type;
+	public String source_guid; //?
+	public boolean system;
+	public String text;
+	public String user_id;
 }
